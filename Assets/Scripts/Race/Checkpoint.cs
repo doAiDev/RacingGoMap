@@ -4,9 +4,12 @@ namespace RacingGoMap.Race
 {
     public class Checkpoint : MonoBehaviour
     {
-        [SerializeField] public int  checkpointIndex;
-        [SerializeField] bool        _isFinishLine;
+        [SerializeField] public int checkpointIndex;
+        [SerializeField] bool       _isFinishLine;
+
         public bool IsFinishLine => _isFinishLine;
+
+        public void SetFinishLine(bool value) => _isFinishLine = value;
 
         void OnTriggerEnter2D(Collider2D other)
         {

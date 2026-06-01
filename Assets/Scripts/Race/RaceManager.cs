@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using RacingGoMap.Car;
-using RacingGoMap.Circuit;
 
 namespace RacingGoMap.Race
 {
@@ -11,15 +10,13 @@ namespace RacingGoMap.Race
     {
         public static RaceManager Instance { get; private set; }
 
-        [SerializeField] RaceStartGrid      _grid;
         [SerializeField] CountdownController _countdown;
-        [SerializeField] CircuitData         _circuitData;
 
         public enum State { Waiting, Countdown, Racing, Finished }
         public State CurrentState { get; private set; } = State.Waiting;
 
-        readonly List<LapTracker>             _trackers    = new();
-        readonly Dictionary<LapTracker, int>  _finishOrder = new();
+        readonly List<LapTracker>            _trackers    = new();
+        readonly Dictionary<LapTracker, int> _finishOrder = new();
         int _finishedCount;
 
         public event Action<State>            OnStateChanged;
@@ -28,23 +25,26 @@ namespace RacingGoMap.Race
         void Awake()
         {
             Instance = this;
-            _countdown.OnTick     += _ => { /* HUD 참조 */ };
             _countdown.OnFinished += StartRace;
         }
 
-        public void RegisterCar(CarController car, int gridIndex)
+        /// <summary>
+        /// 런타임 트랙에 맞게 차량을 등록합니다.
+        /// </summary>
+        public void RegisterCar(CarController car, RaceStartGrid grid,
+                                int totalCheckpoints, int gridIndex)
         {
-            var slot = _grid.GetSlot(gridIndex);
-            car.transform.SetPositionAndRotation(slot.position, slot.rotation);
+            var slot = grid != null ? grid.GetSlot(gridIndex) : null;
+            if (slot != null)
+                car.transform.SetPositionAndRotation(slot.position, slot.rotation);
+
             car.SetCanMove(false);
 
             var tracker = car.GetComponent<LapTracker>();
             if (tracker == null) tracker = car.gameObject.AddComponent<LapTracker>();
 
-            var checkpoints = FindObjectsOfType<Checkpoint>();
-            int cpCount     = checkpoints.Count(c => !c.IsFinishLine);
-            int laps        = _circuitData != null ? _circuitData.totalLaps : 2;
-            tracker.Init(cpCount, laps);
+            int nonFinishCPs = Mathf.Max(0, totalCheckpoints - 1);
+            tracker.Init(nonFinishCPs, 2);
             tracker.OnRaceFinished += () => HandleCarFinished(tracker);
             _trackers.Add(tracker);
         }
@@ -64,18 +64,17 @@ namespace RacingGoMap.Race
             OnStateChanged?.Invoke(CurrentState);
         }
 
-        void HandleCarFinished(LapTracker tracker)
+        void HandleCarFinished(LapTracker t)
         {
-            if (_finishOrder.ContainsKey(tracker)) return;
+            if (_finishOrder.ContainsKey(t)) return;
             _finishedCount++;
-            _finishOrder[tracker] = _finishedCount;
+            _finishOrder[t] = _finishedCount;
 
             if (_finishedCount == 1)
             {
-                // 첫 번째 완주자 나오자마자 종료
                 CurrentState = State.Finished;
                 var sorted = _trackers
-                    .OrderBy(t => _finishOrder.ContainsKey(t) ? _finishOrder[t] : int.MaxValue)
+                    .OrderBy(x => _finishOrder.ContainsKey(x) ? _finishOrder[x] : int.MaxValue)
                     .ToList();
                 OnStateChanged?.Invoke(CurrentState);
                 OnRaceFinished?.Invoke(sorted);
@@ -84,13 +83,13 @@ namespace RacingGoMap.Race
 
         public int GetLivePosition(LapTracker target)
         {
-            if (_finishOrder.TryGetValue(target, out int pos)) return pos;
+            if (_finishOrder.TryGetValue(target, out int p)) return p;
             int rank = 1;
             foreach (var t in _trackers)
             {
                 if (t == target) continue;
                 if (t.CurrentLap > target.CurrentLap ||
-                    (t.CurrentLap == target.CurrentLap && t.NextCheckpoint > target.NextCheckpoint))
+                   (t.CurrentLap == target.CurrentLap && t.NextCheckpoint > target.NextCheckpoint))
                     rank++;
             }
             return rank;
