@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>너랑나랑 레이싱 고맵 — 디자인 초안</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#12121E;color:#fff;font-family:'Segoe UI',Helvetica,sans-serif;padding:40px 20px}
+h1{text-align:center;font-size:26px;color:#FF6B35;margin-bottom:6px}
+.sub{text-align:center;color:#555;font-size:13px;margin-bottom:50px}
+h2{font-size:15px;color:#FF6B35;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid #2A2A40;letter-spacing:1px}
+.section{max-width:980px;margin:0 auto 60px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#1A1A2C;border-radius:14px;padding:22px 16px;text-align:center;border:1px solid #242438}
+.card:hover{border-color:#FF6B3560}
+.ct{font-size:15px;font-weight:700;margin-bottom:4px}
+.cs{font-size:11px;color:#666;margin-bottom:16px}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-top:12px}
+.free{background:#4DCC6622;color:#4DCC66;border:1px solid #4DCC6644}
+.paid{background:#FF6B3522;color:#FF6B35;border:1px solid #FF6B3544}
+.rare{background:#B34DFF22;color:#B34DFF;border:1px solid #B34DFF44}
+.tech{background:#478FFF22;color:#478FFF;border:1px solid #478FFF44}
+.fast{background:#4DCC6622;color:#4DCC66;border:1px solid #4DCC6644}
+.bal{background:#FFD93322;color:#FFD933;border:1px solid #FFD93344}
+</style>
+</head>
+<body>
+<h1>🏎 너랑나랑 레이싱 고맵</h1>
+<p class="sub">디자인 초안 · 자동차 3종 + 서킷 3종</p>
+
+<!-- ═══ 자동차 ═══════════════════════════════════════════════════════ -->
+<div class="section">
+<h2>🚗 자동차 초안</h2>
+<div class="grid">
+
+<!-- CAR 1: 스피드스터 -->
+<div class="card">
+<div class="ct">스피드스터</div>
+<div class="cs">박치기 3 · 가볍고 날렵함 · 무료</div>
+<svg viewBox="0 0 100 156" width="100" height="156" style="display:block;margin:0 auto">
+  <defs>
+    <radialGradient id="rg1" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FF7575"/>
+      <stop offset="100%" stop-color="#CC1F1F"/>
+    </radialGradient>
+  </defs>
+  <!-- shadow -->
+  <ellipse cx="52" cy="80" rx="38" ry="60" fill="#0008"/>
+  <!-- rear wheels -->
+  <ellipse cx="15" cy="46" rx="12" ry="10" fill="#1C1C24"/>
+  <ellipse cx="85" cy="46" rx="12" ry="10" fill="#1C1C24"/>
+  <ellipse cx="15" cy="45" rx="4" ry="3" fill="#55555E"/>
+  <ellipse cx="85" cy="45" rx="4" ry="3" fill="#55555E"/>
+  <!-- front wheels -->
+  <ellipse cx="15" cy="110" rx="12" ry="10" fill="#1C1C24"/>
+  <ellipse cx="85" cy="110" rx="12" ry="10" fill="#1C1C24"/>
+  <ellipse cx="15" cy="109" rx="4" ry="3" fill="#55555E"/>
+  <ellipse cx="85" cy="109" rx="4" ry="3" fill="#55555E"/>
+  <!-- body -->
+  <path d="M50,10 C68,10 82,34 82,64 C82,94 72,132 50,142 C28,132 18,94 18,64 C18,34 32,10 50,10 Z" fill="url(#rg1)"/>
+  <!-- highlight -->
+  <path d="M50,12 C63,12 74,32 74,58 L26,58 C26,32 37,12 50,12 Z" fill="rgba(255,255,255,0.14)"/>
+  <!-- center stripe -->
+  <path d="M46,12 L54,12 L52,140 L48,140 Z" fill="rgba(255,255,255,0.16)"/>
+  <!-- outline -->
+  <path d="M50,10 C68,10 82,34 82,64 C82,94 72,132 50,142 C28,132 18,94 18,64 C18,34 32,10 50,10 Z" fill="none" stroke="#111" stroke-width="2"/>
+  <!-- rear glass -->
+  <path d="M50,35 C39,35 33,26 33,19 L67,19 C67,26 61,35 50,35 Z" fill="#C2E8FF" opacity=".88"/>
+  <!-- front glass -->
+  <path d="M50,103 C39,103 33,113 33,121 L67,121 C67,113 61,103 50,103 Z" fill="#C2E8FF" opacity=".88"/>
+  <!-- plate -->
+  <rect x="36" y="132" width="28" height="9" rx="2" fill="#FFFFCC"/>
+  <text x="50" y="139.5" text-anchor="middle" font-size="6" font-weight="bold" fill="#333">01</text>
+</svg>
+<span class="tag free">무료</span>
+</div>
+
+<!-- CAR 2: 범퍼킹 -->
+<div class="card">
+<div class="ct">범퍼킹</div>
+<div class="cs">박치기 7 · 넓고 단단함 · 500P</div>
+<svg viewBox="0 0 120 156" width="120" height="156" style="display:block;margin:0 auto">
+  <defs>
+    <radialGradient id="rg2" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#6BADFF"/>
+      <stop offset="100%" stop-color="#1A44BB"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="62" cy="80" rx="50" ry="62" fill="#0008"/>
+  <!-- rear wheels -->
+  <ellipse cx="13" cy="46" rx="13" ry="11" fill="#1C1C24"/>
+  <ellipse cx="107" cy="46" rx="13" ry="11" fill="#1C1C24"/>
+  <ellipse cx="13" cy="45" rx="5" ry="4" fill="#55555E"/>
+  <ellipse cx="107" cy="45" rx="5" ry="4" fill="#55555E"/>
+  <!-- front wheels -->
+  <ellipse cx="13" cy="110" rx="13" ry="11" fill="#1C1C24"/>
+  <ellipse cx="107" cy="110" rx="13" ry="11" fill="#1C1C24"/>
+  <ellipse cx="13" cy="109" rx="5" ry="4" fill="#55555E"/>
+  <ellipse cx="107" cy="109" rx="5" ry="4" fill="#55555E"/>
+  <!-- body wide -->
+  <rect x="25" y="18" width="70" height="120" rx="14" fill="url(#rg2)"/>
+  <rect x="25" y="18" width="70" height="120" rx="14" fill="none" stroke="#111" stroke-width="2"/>
+  <!-- highlight -->
+  <rect x="29" y="22" width="30" height="62" rx="8" fill="rgba(255,255,255,0.16)"/>
+  <!-- front bumper (박치기!) -->
+  <rect x="21" y="122" width="78" height="14" rx="6" fill="#FF6B35"/>
+  <rect x="21" y="122" width="78" height="14" rx="6" fill="none" stroke="#111" stroke-width="1.5"/>
+  <!-- rear bumper -->
+  <rect x="21" y="20" width="78" height="12" rx="6" fill="#FF6B35"/>
+  <rect x="21" y="20" width="78" height="12" rx="6" fill="none" stroke="#111" stroke-width="1.5"/>
+  <!-- front glass -->
+  <rect x="33" y="92" width="54" height="28" rx="6" fill="#C2E8FF" opacity=".88"/>
+  <!-- rear glass -->
+  <rect x="33" y="34" width="54" height="20" rx="5" fill="#C2E8FF" opacity=".65"/>
+  <!-- side vents -->
+  <rect x="27" y="64" width="8" height="24" rx="3" fill="rgba(0,0,0,0.30)"/>
+  <rect x="85" y="64" width="8" height="24" rx="3" fill="rgba(0,0,0,0.30)"/>
+  <!-- plate -->
+  <rect x="43" y="128" width="34" height="9" rx="2" fill="#FFFFCC"/>
+  <text x="60" y="135.5" text-anchor="middle" font-size="6" font-weight="bold" fill="#333">02</text>
+</svg>
+<span class="tag paid">500P</span>
+</div>
+
+<!-- CAR 3: 탱크버블 -->
+<div class="card">
+<div class="ct">탱크버블</div>
+<div class="cs">박치기 12 · 둥글고 강함 · 1500P</div>
+<svg viewBox="0 0 130 148" width="130" height="148" style="display:block;margin:0 auto">
+  <defs>
+    <radialGradient id="rg3" cx="38%" cy="36%" r="62%">
+      <stop offset="0%" stop-color="#FFE55A"/>
+      <stop offset="100%" stop-color="#BB8800"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="66" cy="74" rx="54" ry="58" fill="#0008"/>
+  <!-- wheels round -->
+  <ellipse cx="17" cy="42" rx="14" ry="14" fill="#1C1C24"/>
+  <ellipse cx="113" cy="42" rx="14" ry="14" fill="#1C1C24"/>
+  <ellipse cx="17" cy="42" rx="5" ry="5" fill="#55555E"/>
+  <ellipse cx="113" cy="42" rx="5" ry="5" fill="#55555E"/>
+  <ellipse cx="17" cy="106" rx="14" ry="14" fill="#1C1C24"/>
+  <ellipse cx="113" cy="106" rx="14" ry="14" fill="#1C1C24"/>
+  <ellipse cx="17" cy="106" rx="5" ry="5" fill="#55555E"/>
+  <ellipse cx="113" cy="106" rx="5" ry="5" fill="#55555E"/>
+  <!-- body very round -->
+  <ellipse cx="65" cy="74" rx="46" ry="54" fill="url(#rg3)"/>
+  <ellipse cx="65" cy="74" rx="46" ry="54" fill="none" stroke="#111" stroke-width="2.5"/>
+  <!-- highlight -->
+  <ellipse cx="50" cy="58" rx="22" ry="26" fill="rgba(255,255,255,0.22)"/>
+  <!-- dome glass -->
+  <ellipse cx="65" cy="76" rx="26" ry="32" fill="#C2E8FF" opacity=".78"/>
+  <ellipse cx="65" cy="76" rx="26" ry="32" fill="none" stroke="#88CCFF" stroke-width="1.2"/>
+  <!-- headlights -->
+  <ellipse cx="46" cy="114" rx="6" ry="5" fill="#FFFF88"/>
+  <ellipse cx="84" cy="114" rx="6" ry="5" fill="#FFFF88"/>
+  <!-- taillights -->
+  <ellipse cx="46" cy="34" rx="6" ry="5" fill="#FF5555"/>
+  <ellipse cx="84" cy="34" rx="6" ry="5" fill="#FF5555"/>
+  <!-- front bumper bar -->
+  <path d="M36,118 Q65,128 94,118" fill="none" stroke="#FF6B35" stroke-width="5" stroke-linecap="round"/>
+  <!-- rear bumper bar -->
+  <path d="M36,30 Q65,20 94,30" fill="none" stroke="#FF6B35" stroke-width="5" stroke-linecap="round"/>
+</svg>
+<span class="tag rare">1500P</span>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ 서킷 ════════════════════════════════════════════════════════ -->
+<div class="section">
+<h2>🏁 서킷 초안</h2>
+<div class="grid">
+
+<!-- CIRCUIT 1: 그랜드 루프 -->
+<div class="card">
+<div class="ct">그랜드 루프</div>
+<div class="cs">직선 위주 · 헤어핀 2개 · 상단 시케인</div>
+<svg viewBox="0 0 300 250" width="280" height="234" style="display:block;margin:0 auto">
+  <defs>
+    <pattern id="gp" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#5DBF5A"/><rect x="7" y="0" width="7" height="7" fill="#68CF64"/>
+      <rect x="0" y="7" width="7" height="7" fill="#68CF64"/><rect x="7" y="7" width="7" height="7" fill="#5DBF5A"/>
+    </pattern>
+  </defs>
+  <!-- grass bg -->
+  <rect width="300" height="250" rx="8" fill="url(#gp)"/>
+  <!-- track: evenodd outer minus inner -->
+  <path fill-rule="evenodd"
+    d="M56,238 L244,238 Q278,238 278,204 L278,46 Q278,12 244,12
+       L176,12 L176,44 L148,44 L148,12
+       L56,12 Q22,12 22,46 L22,204 Q22,238 56,238 Z
+       M64,60 L236,60 Q256,60 256,80 L256,190 Q256,210 236,210
+       L64,210 Q44,210 44,190 L44,80 Q44,60 64,60 Z"
+    fill="#C8C8D8"/>
+  <!-- curb orange on corners -->
+  <path d="M56,12 Q22,12 22,46" fill="none" stroke="#FF6B35" stroke-width="7" stroke-dasharray="7,5"/>
+  <path d="M22,204 Q22,238 56,238" fill="none" stroke="#FF6B35" stroke-width="7" stroke-dasharray="7,5"/>
+  <path d="M244,12 Q278,12 278,46" fill="none" stroke="#FF6B35" stroke-width="7" stroke-dasharray="7,5"/>
+  <path d="M278,204 Q278,238 244,238" fill="none" stroke="#FF6B35" stroke-width="7" stroke-dasharray="7,5"/>
+  <!-- chicane markers -->
+  <line x1="148" y1="12" x2="148" y2="44" stroke="#FF6B35" stroke-width="4"/>
+  <line x1="176" y1="12" x2="176" y2="44" stroke="#FF6B35" stroke-width="4"/>
+  <!-- center lane line -->
+  <path d="M56,238 L244,238 Q278,238 278,204 L278,46 Q278,12 244,12 L176,12 L176,44 L148,44 L148,12 L56,12 Q22,12 22,46 L22,204 Q22,238 56,238 Z"
+    fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="10,8"/>
+  <!-- start/finish checker -->
+  <rect x="22" y="138" width="9" height="8" fill="#111"/><rect x="31" y="138" width="9" height="8" fill="#fff"/>
+  <rect x="22" y="146" width="9" height="8" fill="#fff"/><rect x="31" y="146" width="9" height="8" fill="#111"/>
+  <!-- S label -->
+  <text x="15" y="134" font-size="8" fill="#fff" opacity=".5">S</text>
+  <!-- PIT sign -->
+  <rect x="242" y="120" width="24" height="12" rx="3" fill="rgba(255,255,255,0.75)"/>
+  <text x="254" y="129" text-anchor="middle" font-size="8" font-weight="bold" fill="#222">PIT</text>
+  <!-- direction arrows -->
+  <text x="149" y="140" text-anchor="middle" font-size="14" fill="#aaa" opacity=".35">↑</text>
+  <text x="265" y="130" text-anchor="middle" font-size="12" fill="#aaa" opacity=".35" transform="rotate(90,265,130)">↑</text>
+</svg>
+<span class="tag tech">테크니컬</span>
+</div>
+
+<!-- CIRCUIT 2: 스네이크 파크 -->
+<div class="card">
+<div class="ct">스네이크 파크</div>
+<div class="cs">S-커브 연속 · 고속 코너 · 박치기 유도</div>
+<svg viewBox="0 0 300 250" width="280" height="234" style="display:block;margin:0 auto">
+  <defs>
+    <pattern id="gp2" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#5DBF5A"/><rect x="7" y="0" width="7" height="7" fill="#68CF64"/>
+      <rect x="0" y="7" width="7" height="7" fill="#68CF64"/><rect x="7" y="7" width="7" height="7" fill="#5DBF5A"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="250" rx="8" fill="url(#gp2)"/>
+  <!-- track: wide rounded rect + organic inner that creates S-curves -->
+  <path fill-rule="evenodd"
+    d="M50,238 L250,238 Q280,238 280,208 L280,42 Q280,12 250,12
+       L50,12 Q20,12 20,42 L20,208 Q20,238 50,238 Z
+       M58,200 L132,200 Q150,200 162,186 L192,154 Q204,140 220,140
+       L242,140 Q258,140 258,124 L258,80 Q258,62 242,62
+       L220,62 Q204,62 192,76 L162,108 Q150,122 132,122
+       L58,122 Q42,122 42,138 L42,184 Q42,200 58,200 Z"
+    fill="#C8C8D8"/>
+  <!-- curbs on tight S-bends -->
+  <path d="M162,108 Q150,122 132,122" fill="none" stroke="#FF6B35" stroke-width="6" stroke-dasharray="7,5"/>
+  <path d="M162,186 Q150,200 132,200" fill="none" stroke="#FF6B35" stroke-width="6" stroke-dasharray="7,5"/>
+  <!-- outer corner curbs -->
+  <path d="M50,12 Q20,12 20,42" fill="none" stroke="#FF6B35" stroke-width="7" stroke-dasharray="7,5"/>
+  <path d="M280,208 Q280,238 250,238" fill="none" stroke="#FF6B35" stroke-width="7" stroke-dasharray="7,5"/>
+  <!-- center line -->
+  <path d="M50,238 L250,238 Q280,238 280,208 L280,42 Q280,12 250,12 L50,12 Q20,12 20,42 L20,208 Q20,238 50,238 Z"
+    fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="10,8"/>
+  <!-- start/finish -->
+  <rect x="20" y="158" width="9" height="8" fill="#111"/><rect x="29" y="158" width="9" height="8" fill="#fff"/>
+  <rect x="20" y="166" width="9" height="8" fill="#fff"/><rect x="29" y="166" width="9" height="8" fill="#111"/>
+  <text x="14" y="155" font-size="8" fill="#fff" opacity=".5">S</text>
+  <!-- S-curve arrow hints -->
+  <text x="150" y="95" text-anchor="middle" font-size="13" fill="#aaa" opacity=".35">↗</text>
+  <text x="150" y="170" text-anchor="middle" font-size="13" fill="#aaa" opacity=".35">↘</text>
+</svg>
+<span class="tag fast">고속형</span>
+</div>
+
+<!-- CIRCUIT 3: 트윈 아크 -->
+<div class="card">
+<div class="ct">트윈 아크</div>
+<div class="cs">두 개의 큰 곡선 · 긴 스트레이트</div>
+<svg viewBox="0 0 300 250" width="280" height="234" style="display:block;margin:0 auto">
+  <defs>
+    <pattern id="gp3" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#5DBF5A"/><rect x="7" y="0" width="7" height="7" fill="#68CF64"/>
+      <rect x="0" y="7" width="7" height="7" fill="#68CF64"/><rect x="7" y="7" width="7" height="7" fill="#5DBF5A"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="250" rx="8" fill="url(#gp3)"/>
+  <!-- Outer track boundary -->
+  <path fill-rule="evenodd"
+    d="M150,238 Q78,238 36,196 Q10,170 10,130 Q10,88 36,62 Q64,34 110,24
+       L150,18 L190,24 Q236,34 264,62 Q290,88 290,130 Q290,170 264,196
+       Q222,238 150,238 Z
+       M150,198 Q96,198 64,168 Q42,148 42,120 Q42,88 72,68
+       Q100,50 150,46 Q200,50 228,68 Q258,88 258,120 Q258,148 236,168
+       Q204,198 150,198 Z"
+    fill="#C8C8D8"/>
+  <!-- cut inner straight through (creates the cross-track section) -->
+  <rect x="124" y="46" width="52" height="152" fill="#C8C8D8"/>
+  <!-- restore center island -->
+  <rect x="134" y="60" width="32" height="130" fill="url(#gp3)"/>
+  <!-- curbs on outer arcs -->
+  <path d="M36,196 Q10,170 10,130 Q10,88 36,62" fill="none" stroke="#FF6B35" stroke-width="7" stroke-dasharray="8,5"/>
+  <path d="M264,62 Q290,88 290,130 Q290,170 264,196" fill="none" stroke="#FF6B35" stroke-width="7" stroke-dasharray="8,5"/>
+  <!-- lane center marks on straights -->
+  <line x1="150" y1="46" x2="150" y2="198" stroke="rgba(255,255,255,0.20)" stroke-width="1.5" stroke-dasharray="10,8"/>
+  <!-- start/finish -->
+  <rect x="124" y="118" width="9" height="8" fill="#111"/><rect x="133" y="118" width="9" height="8" fill="#fff"/>
+  <rect x="124" y="126" width="9" height="8" fill="#fff"/><rect x="133" y="126" width="9" height="8" fill="#111"/>
+  <text x="118" y="116" font-size="8" fill="#fff" opacity=".5">S</text>
+  <!-- arrows -->
+  <text x="70" y="128" text-anchor="middle" font-size="12" fill="#aaa" opacity=".35">↑</text>
+  <text x="232" y="134" text-anchor="middle" font-size="12" fill="#aaa" opacity=".35">↓</text>
+</svg>
+<span class="tag bal">밸런스형</span>
+</div>
+
+</div>
+</div>
+</body>
+</html>
