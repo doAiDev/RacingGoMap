@@ -9,12 +9,8 @@ namespace RacingGoMap.UI
 {
     public class GarageUI : MonoBehaviour
     {
-        [Header("참조")]
-        [SerializeField] CarDatabase _db;
-
         [Header("목록")]
         [SerializeField] Transform  _listContent;
-        [SerializeField] GameObject _carItemPrefab;
 
         [Header("미리보기 패널")]
         [SerializeField] Image    _previewImg;
@@ -46,16 +42,47 @@ namespace RacingGoMap.UI
         void BuildList()
         {
             foreach (Transform c in _listContent) Destroy(c.gameObject);
-            foreach (var car in _db.cars)
-            {
-                var item = Instantiate(_carItemPrefab, _listContent);
-                var icon = item.transform.Find("Icon")?.GetComponent<Image>();
-                if (icon != null && car.carSprite != null) icon.sprite = car.carSprite;
-                item.GetComponentInChildren<TMP_Text>().text = car.carName;
 
-                var btn = item.GetComponent<Button>();
-                var c   = car;
-                if (btn != null) btn.onClick.AddListener(() => SelectCar(c));
+            var gd = RuntimeGameData.Instance;
+            if (gd == null) return;
+
+            foreach (var car in gd.Cars)
+            {
+                var item = new GameObject(car.carId);
+                item.transform.SetParent(_listContent, false);
+
+                var bg = item.AddComponent<Image>();
+                bg.color = new Color(
+                    Mathf.Lerp(car.primaryColor.r, 1f, 0.45f),
+                    Mathf.Lerp(car.primaryColor.g, 1f, 0.45f),
+                    Mathf.Lerp(car.primaryColor.b, 1f, 0.45f),
+                    0.88f);
+
+                var le = item.AddComponent<LayoutElement>();
+                le.minHeight     = 72f;
+                le.flexibleWidth = 1f;
+
+                var btn = item.AddComponent<Button>();
+                var cb  = btn.colors;
+                cb.highlightedColor = Color.Lerp(car.primaryColor, Color.white, 0.3f);
+                cb.pressedColor     = Color.Lerp(car.primaryColor, Color.black, 0.12f);
+                btn.colors = cb;
+
+                var labelGO = new GameObject("Label");
+                labelGO.transform.SetParent(item.transform, false);
+                var label    = labelGO.AddComponent<TextMeshProUGUI>();
+                label.text      = car.carName;
+                label.fontSize  = 22f;
+                label.color     = new Color(0.15f, 0.15f, 0.15f);
+                label.alignment = TextAlignmentOptions.Center;
+                label.fontStyle = FontStyles.Bold;
+                var labelRT     = labelGO.GetComponent<RectTransform>();
+                labelRT.anchorMin = Vector2.zero;
+                labelRT.anchorMax = Vector2.one;
+                labelRT.offsetMin = labelRT.offsetMax = Vector2.zero;
+
+                var carRef = car;
+                btn.onClick.AddListener(() => SelectCar(carRef));
             }
         }
 
@@ -66,11 +93,12 @@ namespace RacingGoMap.UI
             bool owned   = profile.ownedCarIds.Contains(car.carId);
             bool equipped = profile.equippedCarId == car.carId;
 
+            _previewImg.color   = car.primaryColor;
             if (car.carSprite != null) _previewImg.sprite = car.carSprite;
-            _carNameText.text  = car.carName;
-            _bumpForceText.text = $"프로필: 박치기 {car.bumpForce:F1}  /  내성 {car.bumpResistance:F1}";
-            _priceText.text    = car.isDefault ? "기본 차량" : $"{car.purchaseCost:N0} P";
-            _buyFeedback.text  = "";
+            _carNameText.text   = car.carName;
+            _bumpForceText.text = $"박치기 힘: {car.bumpForce:F1}  /  내성: {car.bumpResistance:F1}";
+            _priceText.text     = car.isDefault ? "기본 차량 (무료)" : $"{car.purchaseCost:N0} P";
+            _buyFeedback.text   = "";
 
             _buyButton.gameObject.SetActive(!owned && !car.isDefault);
             _equipButton.gameObject.SetActive(owned && !equipped);
